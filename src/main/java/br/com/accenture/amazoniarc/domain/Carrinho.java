@@ -1,9 +1,7 @@
 package br.com.accenture.amazoniarc.domain;
 
 import java.math.BigDecimal;
-import java.util.List;
 
-import br.com.accenture.amazoniarc.CupomDesconto;
 import br.com.accenture.amazoniarc.integracao.ServicoCalculadoraCorreios;
 import br.com.accenture.amazoniarc.integracao.SistemaCorreios;
 

@@ -1,4 +1,4 @@
-package br.com.accenture.amazoniarc;
+package br.com.accenture.amazoniarc.domain;
 
 import java.math.BigDecimal;
 

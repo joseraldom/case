@@ -1,9 +1,5 @@
 package br.com.accenture.amazoniarc;
 
-import java.math.BigDecimal;
-
-import br.com.accenture.amazoniarc.integracao.SistemaCorreios;
-
 /**
  * Hello world!
  *

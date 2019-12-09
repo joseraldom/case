@@ -4,6 +4,8 @@ import java.math.BigDecimal;
 import java.util.List;
 
 import br.com.accenture.amazoniarc.CupomDesconto;
+import br.com.accenture.amazoniarc.integracao.ServicoCalculadoraCorreios;
+import br.com.accenture.amazoniarc.integracao.SistemaCorreios;
 
 public class Carrinho {
 	
@@ -37,16 +39,7 @@ public class Carrinho {
 		this.frete = frete;
 	}
 	
-	public void preparaCarrinho(List<ItemVenda> itensVenda) {
-		for (ItemVenda itemVenda : itensVenda) {
-			aplicarDesconto(itemVenda);
-			calcularFrete(itemVenda);
-			aplicaIsensaoImposto(itemVenda);
-			
-		}
-	}
-	
-	private void aplicaIsensaoImposto(ItemVenda itemVenda) {
+	public void aplicaIsensaoImposto(ItemVenda itemVenda) {
 		if ("livro".equals(itemVenda.getProduto().getFormato()) ||
 			"jornal".equals(itemVenda.getProduto().getFormato()) ||	
 			"revista".equals(itemVenda.getProduto().getFormato()) ||
@@ -54,11 +47,19 @@ public class Carrinho {
 			itemVenda.getProduto().setImposto(new BigDecimal(0));
 		}
 	}
-	private void calcularFrete(ItemVenda itemVenda) {
-		// TODO Auto-generated method stub
+	public void calcularFrete(ItemVenda itemVenda, String cep, String codigoCep) {
+		if ("digital".equals(itemVenda.getProduto().getTipo())) {
+			frete.add(new BigDecimal(0));
+		} else {
+			SistemaCorreios sc = new SistemaCorreios();
+			ServicoCalculadoraCorreios scf = new ServicoCalculadoraCorreios();
+			
+			scf = sc.consultaCep(cep, codigoCep);
+			frete.add(new BigDecimal(scf.getcServico().getValor()));
+		}
 		
 	}
-	private void aplicarDesconto(ItemVenda itemVenda) {
+	public void aplicarDesconto(ItemVenda itemVenda) {
 		if (cupomDesconto != null && cupomDesconto.isValido() && itemVenda.getProduto().isPromocao()) {
 			itemVenda.setDesconto(cupomDesconto.getValor());
 		}

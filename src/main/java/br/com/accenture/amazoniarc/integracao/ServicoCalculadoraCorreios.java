@@ -24,4 +24,12 @@ public class ServicoCalculadoraCorreios implements Serializable {
 		this.cServico = cServico;
 	}
 
+	public ResponseCalculadorCorreios getcServico() {
+		return cServico;
+	}
+
+	public void setcServico(ResponseCalculadorCorreios cServico) {
+		this.cServico = cServico;
+	}
+
 }
